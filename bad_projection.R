@@ -130,13 +130,13 @@ ggplot() +
 
   labs(
     title    = "Antarctic Research Stations and Historic Expedition Routes",
-    subtitle = "Projection: WGS84 Equirectangular (EPSG:4326)  ← THIS IS THE PROBLEM",
+    subtitle = "Projection: WGS84 Equirectangular (EPSG:4326)",
     x        = "Longitude",
     y        = "Latitude",
     color    = "Expedition",
     caption  = paste0(
-      "⚠  DISTORTION ALERT: In equirectangular/Mercator projections, Antarctica is catastrophically wrong.\n",
-      "The South Pole — a single geographic POINT — renders as an entire line stretching across the bottom.\n",
+      "In equirectangular/Mercator projections, Antarctica is catastrophically wrong.\n",
+      "The South Pole renders as an entire line stretching across the bottom.\n",
       "Shackleton's circular Weddell Sea loop appears flat. East-west distances near the pole are ~10× reality.\n",
       "Amundsen and Scott's routes to the same South Pole appear to end at completely different locations."
     )
@@ -144,6 +144,7 @@ ggplot() +
 
   # Bad design: default gray theme, cluttered, no visual hierarchy
   theme_gray(base_size = 11) +
+  theme_void() +
   theme(
     panel.background  = element_rect(fill = "lightblue"),
     plot.title        = element_text(size = 13, face = "bold"),
@@ -162,5 +163,3 @@ ggsave(
   bg       = "white"
 )
 
-message("Bad projection map saved to: output_bad_projection.png")
-message("Notice how Antarctica stretches infinitely wide — that's the projection lying to you.")

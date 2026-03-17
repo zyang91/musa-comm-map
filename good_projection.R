@@ -151,22 +151,6 @@ graticules <- st_graticule(
 # Pre-compute label coordinates for Shackleton's key events
 route_coords <- st_coordinates(routes_3031)
 
-# Notable location annotations (approximate EPSG:3031 coords)
-annotations <- data.frame(
-  label = c(
-    "Endurance\nsinks here",
-    "Elephant\nIsland",
-    "South\nGeorgia"
-  ),
-  lon = c(-52.4, -55.1, -36.5),
-  lat = c(-68.6, -61.1, -54.3)
-) |>
-  st_as_sf(coords = c("lon", "lat"), crs = 4326) |>
-  st_transform(3031)
-
-ann_coords <- as.data.frame(st_coordinates(annotations))
-ann_coords$label <- annotations$label
-
 # ------------------------------------------------------------------------------
 # BUILD THE MAP
 # ------------------------------------------------------------------------------
@@ -239,26 +223,6 @@ p <- ggplot() +
     fontface = "italic"
   ) +
 
-  # --- Key Event Annotations (Shackleton's story) ---
-  geom_text(
-    data     = ann_coords,
-    aes(x = X, y = Y, label = label),
-    color    = alpha(pal$shackleton, 0.85),
-    size     = 2.0,
-    fontface = "italic",
-    lineheight = 0.85,
-    nudge_x  = 180000
-  ) +
-
-  # South Pole marker at center of projection
-  annotate("text",
-    x        = 0, y = -20000,
-    label    = "South Pole",
-    color    = pal$text_dim,
-    size     = 2.3,
-    fontface = "bold"
-  ) +
-
   # Weddell Sea label
   annotate("text",
     x        = -600000, y = 1100000,
@@ -300,8 +264,8 @@ p <- ggplot() +
 
   # --- Labels ---
   labs(
-    title   = "The Bottom of the World, Finally Right-Side Up",
-    subtitle = "Three Expeditions. Three Fates. One Continent — Shown Correctly.",
+    title   = "Three Expeditions. Three Fates. One Continent",
+    subtitle = "The path human explore the South polar",
     caption  = paste0(
       "Projection: Antarctic Polar Stereographic (EPSG:3031)  |  Data: Natural Earth, Historic expedition records\n",
       "Today, 10 nations maintain permanent research stations on a continent no country owns.\n",
@@ -350,6 +314,7 @@ p <- ggplot() +
     plot.margin = margin(12, 12, 12, 12)
   )
 
+p
 # ------------------------------------------------------------------------------
 # Export
 # ------------------------------------------------------------------------------
@@ -362,5 +327,4 @@ ggsave(
   bg       = pal$ocean
 )
 
-message("Good projection map saved to: output_good_projection.png")
-message("Notice how the continent is a circle — and Shackleton's loop actually loops.")
+
