@@ -250,7 +250,7 @@ p <- ggplot() +
   # ── Cooler callout — upper left ────────────────────────────────────────────
   annotate("text",
     x          = bbox["xmin"] + 400,
-    y          = bbox["ymax"] - 400,
+    y          = bbox["ymax"] - 200,
     label      = paste0(
       "Cooler: Neighborhoods\n",
       "near Wissahickon Valley\n",
@@ -271,7 +271,7 @@ p <- ggplot() +
     x          = bbox["xmax"] - 400,
     y          = bbox["ymin"] + 3500,
     label      = paste0(
-      "Hotter: South Philly's\n",
+      "Hot: South Philly's\n",
       "dense row-home blocks\n",
       "trap heat, reaching\n",
       "over 105°F in summer"
